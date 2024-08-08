@@ -11,7 +11,7 @@ export function AuthProvider ({children}){
         if(email && token){
             setIsLoggedIn(true);
         }
-    });
+    },[]);
 
     return (
         <AuthContext.Provider value={{isLoggedIn, setIsLoggedIn}}>

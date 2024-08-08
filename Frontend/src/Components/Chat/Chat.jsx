@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connectWithSocketServer } from "../../realTimeCommunication/socketConnection";
 import { useSelector } from 'react-redux';
 import Conversation from "./Conversation/Conversation";
-import { NavLink, useLocation, useParams, Routes, Route } from "react-router-dom";
+import { NavLink, useLocation, Routes, Route } from "react-router-dom";
 import ChatBox from "./ChatBox/ChatBox";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { formatMessageDate } from "./ChatBox/helper/formatMessageDate";
@@ -14,7 +14,6 @@ const Chat = () => {
     // console.log("userData", userData);
 
     const [showChats, setShowChats] = useState(true);
-    const [isMobileView, setIsMobileView] = useState(false);
     const [searchName, setSearchName] = useState("");
     const [filteredConversation, setFilteredConversation] = useState([]);
     const [filteredchats, setFilteredchats] = useState([]);
@@ -22,22 +21,10 @@ const Chat = () => {
     const location = useLocation();
     const isChatBox = location.pathname !== "/";
     let currentUserName = location.pathname.split("/")[1];
-    const UserID = localStorage.getItem("userId")
     const profileImage = localStorage.getItem("profileImage");
 
     useEffect(() => {
         connectWithSocketServer();
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobileView(window.innerWidth <= 769)
-        }
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
     }, []);
 
     const handleSearchInputChange = (event) => {
@@ -74,13 +61,13 @@ const Chat = () => {
 
     return (
         <div className="Chat h-[100vh] flex ">
+            {/* Add sidebar content here */}
             <aside className={`md:w-1/4 md:min-w-96 w-full h-full bg-gray-800 text-white p-2 md:p-4 border-r-[1px] border-r-white ${isChatBox ? "hidden md:block" : "block"}`}>
                 <div className=" ">
-                    {/* Add sidebar content here */}
                     <div className="flex justify-between mb-4 py-1">
                         <div className="flex flex-row items-center">
                             <div className=" flex items-center text-2xl text-white w-8 h-8 rounded-full">
-                                <img className="w-full h-full rounded-full" src={profileImage} />
+                                <img className="w-full h-full rounded-full" src={profileImage} alt="userImage" />
                             </div>
                             <p className="text-xl pl-2">{`${localStorage.getItem("fullName")}`}</p>
                         </div>
@@ -177,19 +164,20 @@ const Chat = () => {
                 ) : (
                     <span className={`chatbox-empty-message flex flex-col justify-center items-center `}>
                         <div className="text-xl text-white w-40 h-40">
-                            <img src="../../../../chatLogo.svg" />
+                            <img src="../../../../chatLogo.svg"  alt="logo"/>
                         </div>
                         <ul className="flex flex-col justify-start text-left gap-2 list-disc mt-4">
                             <li>Real-time peer-to-peer communication</li>
                             <li>Update and delete shared messages</li>
+                            <li>View chat history with precise timestamps</li>
                             <li>Track whether messages have been seen or unseen</li>
-                            <li>Display timestamps for when messages are delivered and seen</li>
-                            <li>Green dot on profile indicates the user is online</li>
                             <li>Search conversations and find new users</li>
+                            <li>Green dot on profile indicates the user is online</li>
+                            <li>Display timestamps for when messages are delivered and seen</li>
                             <li>Highlight unseen messages with a count of unread messages</li>
                         </ul>
 
-                        
+
                         <p className='text-lg mt-4 text-gray-600'>Select user to start message.</p>
                     </span>
                 )}

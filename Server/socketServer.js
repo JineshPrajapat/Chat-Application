@@ -11,10 +11,11 @@ const disconnectHandler = require("./socketHandlers/disconnectHandler");
 const conversationHandler = require("./socketHandlers/conversationHandler");
 const getAllUsers = require("./socketHandlers/utils/getAllUsers");
 const updateMessageHandler = require("./socketHandlers/updateMessageHandler");
+require("dotenv").config();
 
 const allowedOrigins = [
     'http://localhost:3000',
-    '*'
+    process.env.APP_URL
 ];
 
 module.exports.initializeSocketServer = async (server) =>{

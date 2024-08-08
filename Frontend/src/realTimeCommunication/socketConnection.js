@@ -6,7 +6,7 @@ import { setMessages } from "../Redux/messageSlice";
 
 let socket = null;
 export const connectWithSocketServer = () => {
-    socket = io('http://localhost:5000', {
+    socket = io(process.env.REACT_APP_CHAT_URL, {
         auth: {
             token: localStorage.getItem('token')
         }
@@ -42,6 +42,11 @@ export const connectWithSocketServer = () => {
     });
 
 };
+
+// below function are called in other component within the siderbar, chatbox, input etc as per required;
+// from frontend what ever opration have to perform then all data is transmit from this page consit of operations
+
+
 
 export const getCurrentUser = (data) => {
     try {

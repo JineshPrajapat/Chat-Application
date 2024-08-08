@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IonIcon } from '@ionic/react';
 import { NavLink, useParams } from "react-router-dom";
 import { getCurrentUser, sendDirectMessage, directChatHistory, deleteMessage, updateSeen, updateMessage } from "../../../realTimeCommunication/socketConnection";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { chevronBackOutline, send, trashOutline, createOutline } from "ionicons/icons";
 import ChatMessage from "./ChatMessage/ChatMessage";
 import { groupedMessageDate } from "./helper/formatMessageDate";
@@ -39,7 +39,6 @@ const ChatBox = () => {
 
     useEffect(() => {
         if (currentChat?.currentUserID) {
-            console.log("message", messages)
             directChatHistory(currentChat?.currentUserID);
 
             const intervalId = setInterval(() => {
@@ -48,7 +47,7 @@ const ChatBox = () => {
 
             return () => clearInterval(intervalId);
         }
-    }, [currentChat?.currentUserID, currentUserName]);
+    }, [currentChat?.currentUserID]);
 
     const handleOnChange = (e) => {
         const { value } = e.target;

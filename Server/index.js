@@ -18,7 +18,7 @@ cloudinaryConnect();
 
 initializeSocketServer(server);
 
-const allowedOrigins = [ 'http://localhost:3000', '*' ];
+const allowedOrigins = [ 'http://localhost:3000', process.env.APP_URL ];
 
 app.use(cors({ origin:allowedOrigins, credentials: true }));
 app.use(express.json());

@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+}
+
+.scrollbar::-webkit-scrollbar{
+  width: 5px;
+}
+.scrollbar::-webkit-scrollbar-track{
+  @apply bg-gray-800 
+}
+.scrollbar::-webkit-scrollbar-thumb{
+  @apply bg-gray-800 rounded-full
+}
+.scrollbar::-webkit-scrollbar-thumb:hover{
+  @apply bg-slate-500 rounded-full
+}
+
+.show-confirmation .overlay .confirmation-popup {
+  opacity: 1;
+  transition: opacity 0.3s;
+}

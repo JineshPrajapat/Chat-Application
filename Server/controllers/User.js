@@ -114,7 +114,7 @@ exports.login = async (req, res)=>{
             });
         }
         else{
-            return res.cookie("token", token, options).status(402).json({
+            return res.status(402).json({
                 success: false,
                 message: "Password do not match."
             });

@@ -43,7 +43,10 @@ module.exports.initializeSocketServer = async (server) =>{
     io.on('connection', (socket) =>{
         console.log("user connected", socket.id);
 
-        newConnectionHandler(socket, io);
+        // newConnectionHandler(socket, io);
+        if (typeof newConnectionHandler === 'function') {
+            newConnectionHandler(socket, io);
+        }
         emitOnlineUsers();
         getAllUsers(socket);
         conversationHandler(socket);
@@ -76,10 +79,12 @@ module.exports.initializeSocketServer = async (server) =>{
         socket.on("disconnect", () =>{
             console.log("disconnected....");
             disconnectHandler(socket);
+            emitOnlineUsers();
         });
 
-        setInterval(()=>{
-            emitOnlineUsers();
-        }, [1000*8]);
     });
+
+    setInterval(()=>{
+        emitOnlineUsers();
+    }, [1000*8]);
 };

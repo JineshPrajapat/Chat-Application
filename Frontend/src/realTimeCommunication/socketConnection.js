@@ -6,15 +6,16 @@ import { setMessages } from "../Redux/messageSlice";
 
 let socket = null;
 export const connectWithSocketServer = () => {
-    socket = io(process.env.REACT_APP_CHAT_URL, {
+    socket = io("https://chat-application-igam.vercel.app", {
         auth: {
-            token: localStorage.getItem('token')
-        }
+            token: localStorage.getItem('token'),
+        },
+        reconnectionAttempts: 5
     });
 
     socket.on("connect", () => {
         console.log("connnected with socket server");
-        console.log(socket.id);
+        // console.log(socket.id);
     });
 
     socket.on("conversation", (data) => {

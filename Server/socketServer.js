@@ -15,6 +15,7 @@ require("dotenv").config();
 
 const allowedOrigins = [
     'http://localhost:3000',
+    "https://chats-code.vercel.app",
     process.env.APP_URL
 ];
 

@@ -59,10 +59,10 @@ export const getCurrentUser = (data) => {
             if (socket && typeof socket.emit === 'function') {
                 socket.emit("message-page", data);
             } else {
-                console.warn("Socket is not available or does not have an emit method.");
+                console.log("Socket is not available or does not have an emit method.");
             }
         } else {
-            console.warn("No data provided.");
+            console.log("No data provided.");
         }
     }
     catch (err) {
@@ -78,10 +78,10 @@ export const sendDirectMessage = (data) => {
             if (socket && typeof socket.emit === 'function') {
                 socket.emit("direct-message", data);
             } else {
-                console.warn("Socket is not available or does not have an emit method.");
+                console.log("Socket is not available or does not have an emit method.");
             }
         } else {
-            console.warn("No data provided.");
+            console.log("No data provided.");
         }
     }
     catch (err) {
@@ -96,7 +96,7 @@ export const directChatHistory = (data) => {
             store.dispatch(setMessages([]));
             socket.emit("direct-chat-history", data);
         } else {
-            console.warn("Socket is not available or does not have an emit method.");
+            console.log("Socket is not available or does not have an emit method.");
         }
     } catch (err) {
         console.error(err);

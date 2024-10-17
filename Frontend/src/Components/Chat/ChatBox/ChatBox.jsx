@@ -74,7 +74,7 @@ const ChatBox = () => {
                 createdAt: new Date().toISOString(),
                 msgByUserId: localStorage.getItem("userId")
             };
-            console.log("MessageData", messageData);
+            // console.log("MessageData", messageData);
 
             sendDirectMessage({
                 receiver: currentChat?.currentUserID,
@@ -212,7 +212,7 @@ const ChatBox = () => {
                                                 </div>
                                             ) : (
                                                 <ChatMessage
-                                                    key={message._id}
+                                                    // key={message._id}
                                                     message={message}
                                                     currentChat={currentChat}
                                                     isSelected={selectedMessages.includes(message._id)}

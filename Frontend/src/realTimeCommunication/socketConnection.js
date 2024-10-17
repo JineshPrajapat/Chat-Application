@@ -20,7 +20,7 @@ export const connectWithSocketServer = () => {
     });
 
     socket.on("conversation", (data) => {
-        console.log("conversation data",data)
+        // console.log("conversation data",data)
         store.dispatch(setConversation(data));
     });
 
@@ -36,7 +36,7 @@ export const connectWithSocketServer = () => {
 
     socket.on("message", (data) => {
         if (data) {
-            console.log('Message data:', data);
+            // console.log('Message data:', data);
             store.dispatch(setMessages(data));
         } else {
             console.error('No data received in message event');
@@ -54,7 +54,15 @@ export const getCurrentUser = (data) => {
     try {
         if (data) {
             store.dispatch(setMessages([]));
-            socket.emit("message-page", data);
+
+            // Check if socket is available
+            if (socket && typeof socket.emit === 'function') {
+                socket.emit("message-page", data);
+            } else {
+                console.warn("Socket is not available or does not have an emit method.");
+            }
+        } else {
+            console.warn("No data provided.");
         }
     }
     catch (err) {
@@ -66,7 +74,14 @@ export const sendDirectMessage = (data) => {
     console.log("sendDirectMessage", data);
     try {
         if (data) {
-            socket.emit("direct-message", data);
+            // Check if socket is available
+            if (socket && typeof socket.emit === 'function') {
+                socket.emit("direct-message", data);
+            } else {
+                console.warn("Socket is not available or does not have an emit method.");
+            }
+        } else {
+            console.warn("No data provided.");
         }
     }
     catch (err) {
@@ -76,11 +91,15 @@ export const sendDirectMessage = (data) => {
 
 export const directChatHistory = (data) => {
     try {
-        console.log("directChatHistory", data);
-        store.dispatch(setMessages([]));
-        socket.emit("direct-chat-history", data);
+        // Check if socket is available
+        if (socket && typeof socket.emit === 'function') {
+            store.dispatch(setMessages([]));
+            socket.emit("direct-chat-history", data);
+        } else {
+            console.warn("Socket is not available or does not have an emit method.");
+        }
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 }
 

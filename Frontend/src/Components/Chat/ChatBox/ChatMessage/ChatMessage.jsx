@@ -3,8 +3,8 @@ import moment from "moment";
 import React from "react";
 import { checkmarkDoneOutline } from 'ionicons/icons';
 
-const ChatMessage = ({ key, message, currentChat, isSelected, onDeleteMessage, onEditMessage }) => {
-    console.log("chatmesssage", message);
+const ChatMessage = ({message, currentChat, isSelected, onDeleteMessage, onEditMessage }) => {
+    // console.log("chatmesssage", message);
 
     const handleDelete = () => {
         if (message?.msgByUserId !== currentChat.currentUserID) {

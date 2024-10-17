@@ -4,6 +4,7 @@ import {baseURL} from "../../API/api";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import InputField from "./InputField";
 import Button from "./Button";
+import { toast } from "react-toastify";
 
 function SignUp() {
     const { setIsLoggedIn } = useAuth();
@@ -51,7 +52,7 @@ function SignUp() {
             url = baseURL+"/user/signUp";
             formData = formValue;
         }
-        console.log(url)
+        // console.log(url);
         axios.post(url, formData)
             .then(response => {
                 if (response.status === 200) {
@@ -62,28 +63,36 @@ function SignUp() {
                     localStorage.setItem('userName', response.data.payload.username);
                     localStorage.setItem('fullName', response.data.payload.fullName);
                     localStorage.setItem('profileImage', response.data.payload.profileImage);
-
                     setIsLoggedIn(true);
+                    if(isLoginForm)
+                        toast.success("Login Successfully");
+                    else
+                        toast.success("Registered Successfully");
                 }
             })
             .catch(error => {
                 if (error.response) {
                     if (error.response.status === 409) {
-                        console.log("User Already exist");
+                        // console.log("User Already exist");
                         setIsLoginForm(true);
+                        toast.info("User Already exist.")
                     }
                     else if (error.response.status === 403) {
                         console.log("All fields are required");
+                        toast.error("All fields are required.")
                     }
                     else if (error.response.status === 401) {
                         console.log("User not exist, Please signUp");
                         setIsLoginForm(false);
+                        toast.error("User not exist, Please signUp.")
                     }
                     else if (error.response.status === 402) {
                         console.log("Password do not match");
+                        toast.error("Password is incorrect.");
                     }
                     else {
                         console.log('Error;', error);
+                        toast.error("Network error, try again.")
                     }
                 }
             })

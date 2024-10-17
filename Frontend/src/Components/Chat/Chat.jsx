@@ -49,7 +49,7 @@ const Chat = () => {
                     user?.fullName.toLowerCase().includes(query.toLowerCase()) || user.email.includes(query.toLowerCase()) || user.username.includes(query.toLowerCase())
                 );
                 setFilteredchats(chatfiltered);
-                console.log("filteredchats", chatfiltered);
+                // console.log("filteredchats", chatfiltered);
             }
         }
 

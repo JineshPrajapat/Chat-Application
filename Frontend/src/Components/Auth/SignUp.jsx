@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import baseURL from "../../API/api";
+import {baseURL} from "../../API/api";
 import { useAuth } from "../../AuthProvider/AuthProvider";
 import InputField from "./InputField";
 import Button from "./Button";
@@ -51,6 +51,7 @@ function SignUp() {
             url = baseURL+"/user/signUp";
             formData = formValue;
         }
+        console.log(url)
         axios.post(url, formData)
             .then(response => {
                 if (response.status === 200) {

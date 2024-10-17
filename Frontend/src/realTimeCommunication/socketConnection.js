@@ -2,11 +2,12 @@ import io from "socket.io-client";
 import { store } from "../Redux/store";
 import { setConversation, setAllUser, setCurrentChat } from "../Redux/chatSlice";
 import { setMessages } from "../Redux/messageSlice";
+import { chatURL } from "../API/api";
 
 
 let socket = null;
 export const connectWithSocketServer = () => {
-    socket = io("https://chat-application-igam.vercel.app", {
+    socket = io(chatURL, {
         auth: {
             token: localStorage.getItem('token'),
         },
